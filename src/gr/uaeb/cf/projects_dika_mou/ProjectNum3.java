@@ -22,7 +22,7 @@ public class ProjectNum3 {
        charsCounter = populate(charsCounter);
        charsCounter= charactersCounted(charsCounter);
 
-
+        System.out.println("popipo");
     }
     public static int[][] populate(int[][] charsCounter){
 
