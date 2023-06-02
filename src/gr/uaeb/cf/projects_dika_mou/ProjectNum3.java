@@ -1,29 +1,45 @@
 package gr.uaeb.cf.projects_dika_mou;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 
 import static java.lang.Character.codePointAt;
 
 public class ProjectNum3 {
+    static BufferedReader in;
 
-    public static void main(String[] args) {
-        int[][] charsCounter = new int[256][2];
+    static {
+        try {
+            in = new BufferedReader(new FileReader("C:/tmp/textfile.txt"));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void main(String[] args)  {
+
+       int[][] charsCounter = new int[256][2];
+       charsCounter = populate(charsCounter);
+       charsCounter= charactersCounted(charsCounter);
+
+
+    }
+    public static int[][] populate(int[][] charsCounter){
+
         for (int i = 0 ; i < charsCounter.length  ; i++  ){
 
-                charsCounter[i][0] = -1;
-                charsCounter[i][1] = 0 ;
+            charsCounter[i][0] = -1;
+            charsCounter[i][1] = 0 ;
         }
-
-        try (BufferedReader in = new BufferedReader(new FileReader("C:/tmp/textfile.txt"));){
-            String line = in.readLine(); ;
+        return charsCounter ;
+    }
+    public static int[][] charactersCounted(int[][] charsCounter){
+        try {
+            String line = in.readLine();
             char[] charrArray = new char[line.length()];
 
 
-            while ( line != null){
+            while(line != null){
 
                 for (int i = 0 ; i < line.length() ; i++){
                     charrArray[i] = line.charAt(i);
@@ -37,8 +53,8 @@ public class ProjectNum3 {
                         } else if (charsCounter[j][0] == -1 ) {
                             charsCounter[j][0] = codePointAt(charrArray,i);
                             charsCounter[j][1] += 1;
-                            ;
-                        } else if (codePointAt(charrArray,i) != charsCounter[j][1] ) {
+
+                        } else if (codePointAt(charrArray,i) != charsCounter[j][1] && codePointAt(charrArray,i)  != -1 ) {
                             continue;
                         }
 
@@ -48,9 +64,11 @@ public class ProjectNum3 {
             }
 
 
-        }catch (IOException e){
-            e.printStackTrace();
-        
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+        return charsCounter;
     }
+
+
 }
