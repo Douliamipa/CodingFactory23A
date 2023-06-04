@@ -22,8 +22,21 @@ public class ProjectNum3 {
        charsCounter = populate(charsCounter);
        charsCounter= charactersCounted(charsCounter);
 
-        System.out.println("popipo");
+
+       for (int i = 0 ; i < charsCounter.length ; i ++){
+           System.out.println(charsCounter[i][0] +"  "+ charsCounter[i][1]);
+       }
+
+
+
     }
+
+//    public static char[] symbolAtUTF8(int[][] charsCounter){
+//
+//    }
+
+
+
     public static int[][] populate(int[][] charsCounter){
 
         for (int i = 0 ; i < charsCounter.length  ; i++  ){
@@ -36,10 +49,11 @@ public class ProjectNum3 {
     public static int[][] charactersCounted(int[][] charsCounter){
         try {
             String line = in.readLine();
-            char[] charrArray = new char[line.length()];
+
 
 
             while(line != null){
+                char[] charrArray = new char[line.length()];
 
                 for (int i = 0 ; i < line.length() ; i++){
                     charrArray[i] = line.charAt(i);
@@ -47,15 +61,14 @@ public class ProjectNum3 {
 
                 for (int i = 0 ; i < charrArray.length ; i ++ ){
                     for (int j = 0 ; j < charsCounter.length ; j ++){
-                        if (codePointAt(charrArray,i) == charsCounter[j][1]){
-                            charsCounter[j][2] +=1;
-                            continue;
+                        if (codePointAt(charrArray,i) == charsCounter[j][0]){
+                            charsCounter[j][1] +=1;
+                            break;
                         } else if (charsCounter[j][0] == -1 ) {
                             charsCounter[j][0] = codePointAt(charrArray,i);
                             charsCounter[j][1] += 1;
+                            break;
 
-                        } else if (codePointAt(charrArray,i) != charsCounter[j][1] && codePointAt(charrArray,i)  != -1 ) {
-                            continue;
                         }
 
                     }
