@@ -21,19 +21,71 @@ public class ProjectNum3 {
        int[][] charsCounter = new int[256][2];
        charsCounter = populate(charsCounter);
        charsCounter= charactersCounted(charsCounter);
-
+       char[] charactersRecord =actualSymbol(charsCounter);
+       double[] timesSeenInFile = new double[charsCounter.length] ;
+       timesSeenInFile = timesSeenInWholeFile(charsCounter);
 
        for (int i = 0 ; i < charsCounter.length ; i ++){
-           System.out.println(charsCounter[i][0] +"  "+ charsCounter[i][1]);
+           System.out.println( "Το στοιχείο "+ charactersRecord[i] +"Εμφανίστηκε στο δωθέν αρχείο"+ charsCounter[i][1] + "φορές");
+       }
+
+       for (int i = 0 ; i < charsCounter.length ; i++){
+           System.out.println("Το στοιχείο"+ charactersRecord[i] + "Εμανήστικε " + timesSeenInFile[i] *(100/100) + "Σε σχέση με τα υπόλοιπα στοιχεία " );
        }
 
 
 
     }
 
-//    public static char[] symbolAtUTF8(int[][] charsCounter){
-//
-//    }
+    public static double[] timesSeenInWholeFile(int[][] charsCounter){
+        int sum = 0 ;
+        double[]timesSeenInWholeFile = new double[charsCounter.length] ;
+
+
+        for (int i = 0 ; i < charsCounter.length ; i++){
+            sum = sum +charsCounter[i][1];
+        }
+
+        for (int i = 0 ; i < charsCounter.length ; i++){
+            timesSeenInWholeFile[i] = charsCounter[i][1]/sum ;
+        }
+        return timesSeenInWholeFile;
+    }
+
+    public static char[] actualSymbol(int[][] charsCounter) {
+       char[] charFinal = new char[253];
+        try {
+            String line = in.readLine();
+
+
+
+            while (line != null) {
+                char[] charrArray = new char[line.length()];
+
+                for (int i = 0; i < line.length(); i++) {
+                    charrArray[i] = line.charAt(i);
+                }
+
+                for (int i = 0; i < charrArray.length; i++) {
+                    for (int j = 0; j < charsCounter.length; j++) {
+                        if (codePointAt(charrArray, i) == charsCounter[j][0]) {
+                            charFinal[i] = charrArray[i];
+                            break;
+                        }
+
+                    }
+                }
+                line = in.readLine();
+            }
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return charFinal;
+    }
+
+
 
 
 
