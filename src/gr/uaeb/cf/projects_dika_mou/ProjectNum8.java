@@ -9,6 +9,7 @@ public class ProjectNum8 {
     public static void main(String[] args) {
         int[][] board = new int[3][3];
         int previusPlay = 0 ;
+        boolean completeboard = false ;
 
         for (int i = 0 ; i < board.length ; i++){
             for (int j = 0 ; j < board[i].length ; j++){
@@ -16,8 +17,35 @@ public class ProjectNum8 {
             }
         }
 
+        while (!(completeboard=isBoardComplete(board))){
+            roundAnouncer(getPreviusplayer(previusPlay));
+            if (previusPlay == 0 ){
+                players1play(board,getPreviusplayer(previusPlay));
+            } else if (previusPlay == 1) {
+                players2play(board , previusPlay);
+            }else {
+                players1play(board,previusPlay);
+            }
+        }
 
 
+
+    }
+
+    public static  boolean isBoardComplete(int[][] board){
+        boolean completeBoard = false ;
+        int counter = 0;
+        for (int i = 0 ; i < board.length ; i++){
+            for (int j = 0 ; j < board[i].length ; j++){
+                if (board[i][j] != 0){
+                    counter += 1 ;
+                }
+            }
+        }
+        if (counter == (board.length * board[1].length)){
+            completeBoard = true ;
+        }
+        return completeBoard ;
     }
 
     public static void areVictoryConditionsMet (int[][] board){
@@ -41,7 +69,7 @@ public class ProjectNum8 {
         if ( previusPlay == 1){
             System.out.println("Its player's numer 2 turn");
         }else {
-            System.out.println("Its player's numer 1 turn");
+            System.out.println("Its player's number 1 turn");
         }
     }
 
